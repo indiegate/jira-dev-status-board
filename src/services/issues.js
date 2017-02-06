@@ -24,7 +24,11 @@ export function processIssue(issue) {
   });
 
   issue.commitRepositories.forEach(rep => {
-    groupsMap[`${rep.avatarDescription}/${rep.name}`].lastCommitBuild = calcBuilds(rep.lastCommitBuilds);
+    const n = `${rep.avatarDescription}/${rep.name}`;
+    if (!groupsMap[n]) {
+      groupsMap[n] = {};
+    }
+    groupsMap[n].lastCommitBuild = calcBuilds(rep.lastCommitBuilds);
   });
 
   const keys = Object.keys(groupsMap);
