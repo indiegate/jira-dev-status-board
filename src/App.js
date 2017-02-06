@@ -1,21 +1,47 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
+import { appMounted } from './actions';
 import logo from './logo.svg';
+import IssueRow from './components/IssueRow';
 import './App.css';
 
 class App extends Component {
+
+  static propTypes = {
+    issues: React.PropTypes.array,
+    appMounted: React.PropTypes.func.isRequired,
+  };
+
+  componentDidMount() {
+    this.props.appMounted();
+  }
+
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <img src={logo} className="App-logo" alt="logo"/>
+          <h2>storyboard/</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          <table border="1">
+            <tbody>
+              {this.props.issues.map(issue => <IssueRow issue={issue}/>)}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const actions = {
+  appMounted,
+};
+
+const mapStateToProps = state => ({
+  issues: state.issues,
+});
+
+export default connect(mapStateToProps, actions)(App);

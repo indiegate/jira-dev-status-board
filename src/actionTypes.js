@@ -1,0 +1,3 @@
+export const APP_MOUNTED = 'APP_MOUNTED';
+
+export const ISSUES_RECEIVED = 'ISSUES_RECEIVED';
