@@ -1,6 +1,15 @@
 import groupBy from 'lodash/groupBy';
 import mapValues from 'lodash/mapValues';
 
+function calcBuilds(buildsStatus) {
+  if (buildsStatus.failed > 0) {
+    return 'FAILED';
+  } else if (buildsStatus.successful > 0) {
+    return 'SUCCESSFUL';
+  }
+  return 'NONE';
+}
+
 export function processIssue(issue) {
   const groupedBranches = groupBy(issue.branches, branch => (`${branch.repository.avatarDescription}/${branch.repository.name}`));
   const groupsMap = mapValues(groupedBranches, value => ({ branches: value }));
@@ -15,7 +24,7 @@ export function processIssue(issue) {
   });
 
   issue.commitRepositories.forEach(rep => {
-    groupsMap[`${rep.avatarDescription}/${rep.name}`].lastCommitBuilds = rep.lastCommitBuilds;
+    groupsMap[`${rep.avatarDescription}/${rep.name}`].lastCommitBuild = calcBuilds(rep.lastCommitBuilds);
   });
 
   const keys = Object.keys(groupsMap);

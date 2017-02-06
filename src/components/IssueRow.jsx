@@ -11,7 +11,9 @@ class IssueRow extends Component {
     const issue = this.props.issue;
     return (
       <tr>
-        <td>{issue.summary}</td>
+        <td className="Issue">
+          <div className="IssueSummary">{issue.summary}</div>
+        </td>
         {issue.repositories.map(rep => <IssueRepository repository={rep}/>)}
       </tr>
     );

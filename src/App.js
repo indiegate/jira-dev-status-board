@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { appMounted } from './actions';
-import logo from './logo.svg';
 import IssueRow from './components/IssueRow';
 import './App.css';
 
@@ -21,7 +20,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
           <h2>storyboard/</h2>
         </div>
         <div>

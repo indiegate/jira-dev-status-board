@@ -19,11 +19,14 @@ class IssueRepository extends Component {
 
 
   render() {
-    const { name, combined } = this.props.repository;
+    const { name, combined, lastCommitBuild } = this.props.repository;
     return (
       <td>
-        <div>
+        <div className="RepositoryName">
           {name}
+        </div>
+        <div>
+          {lastCommitBuild}
         </div>
         <div>
           { combined.map(branchCombined => this.renderBranchRow(branchCombined)) }
