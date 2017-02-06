@@ -26,6 +26,7 @@ app.use((req, res, next) => {
 
 const getIssueDetails = issueName => {
   let data;
+  let repositoriesCommits;
   const promise = rp({
     url: `http://jira:81/rest/api/2/issue/${issueName}`,
     headers: AUTH_HEADERS,
@@ -50,19 +51,19 @@ const getIssueDetails = issueName => {
     headers: AUTH_HEADERS,
     json: true,
   })).then(response => {
-    data.repositories = response.detail[0] ? response.detail[0].repositories : [];
+    data.commitRepositories = response.detail[0] ? response.detail[0].repositories : [];
   }).then(() => {
-    if (data.repositories.length > 0) {
-      data.repositoriesCommits = data.repositories.map(rep => ({
+    if (data.commitRepositories.length > 0) {
+      repositoriesCommits = data.commitRepositories.map(rep => ({
         lastCommit: _.maxBy(rep.commits, commit => commit.authorTimestamp),
         name: rep.name,
         avatarDescription: rep.avatarDescription,
       }));
     } else {
-      data.repositoriesCommits = []
+      repositoriesCommits = []
     }
   }).then(() => {
-    return Promise.all(data.repositoriesCommits.map(rep => rep.lastCommit).map(commit => {
+    return Promise.all(repositoriesCommits.map(rep => rep.lastCommit).map(commit => {
       return rp({
         url: `http://stash:7990/rest/build-status/1.0/commits/stats/${commit.id}`,
         headers: AUTH_HEADERS,
@@ -70,7 +71,9 @@ const getIssueDetails = issueName => {
       });
     }));
   }).then(values => {
-    data.repositoriesCommitsBuilds = values;
+    data.commitRepositories.forEach((rep, idx) => {
+      rep.lastCommitBuilds = values[idx];
+    });
   }).then(() => {
     return data;
   });
