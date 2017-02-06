@@ -23,10 +23,14 @@ class IssueRow extends Component {
             <span className="IssueTitle">Status: </span>
             <span className={`IssueState is-${this.processState(issue.issueState)}`}>{issue.issueState}</span>
           </div>
-          <div className="IssueTimeSpent">
-            <span className="IssueTitle">Time spent: </span>
-            <span>{prettySeconds(issue.timeSpent)}</span>
-          </div>
+          {
+            issue.timeSpent
+            ? <div className="IssueTimeSpent">
+              <span className="IssueTitle">Time spent: </span>
+              <span>{prettySeconds(issue.timeSpent)}</span>
+            </div>
+            : null
+          }
         </td>
         {issue.repositories.map(rep => <IssueRepository repository={rep}/>)}
       </tr>
