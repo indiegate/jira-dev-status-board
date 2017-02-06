@@ -16,7 +16,7 @@ export const getFeedsEpic = (action$, { getState }) => action$
     .ofType(APP_MOUNTED)
     .mergeMap(action =>
       ajax.getJSON(`http://localhost:3000/testIssue`)
-        .map(response => issuesReceived(processIssue(response)))
+        .map(response => issuesReceived(response.map(processIssue)))
     );
 
 export default combineEpics(

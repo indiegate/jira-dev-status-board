@@ -14,6 +14,10 @@ export function processIssue(issue) {
     groupsMap[key].pullRequests = groupedPullRequsts[key];
   });
 
+  issue.commitRepositories.forEach(rep => {
+    groupsMap[`${rep.avatarDescription}/${rep.name}`].lastCommitBuilds = rep.lastCommitBuilds;
+  });
+
   const keys = Object.keys(groupsMap);
   issue.repositories = keys.map(key => ({
     name: key,
@@ -25,7 +29,6 @@ export function processIssue(issue) {
 
     const bMap = groupBy(rep.branches, b => b.name);
     const prMap = groupBy(rep.pullRequests, p=>p.source.branch);
-
 
     Object.keys(bMap).forEach(key => {
       map[key] = { branches: bMap[key]}
@@ -45,6 +48,5 @@ export function processIssue(issue) {
     }));
   });
 
-  //debugger
   return issue;
 }
