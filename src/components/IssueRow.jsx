@@ -1,3 +1,5 @@
+var prettySeconds = require('pretty-seconds');
+
 import React, {Component} from 'react';
 import IssueRepository from './IssueRepository';
 
@@ -21,7 +23,10 @@ class IssueRow extends Component {
             <span className="IssueTitle">Status: </span>
             <span className={`IssueState is-${this.processState(issue.issueState)}`}>{issue.issueState}</span>
           </div>
-          {/*<div className="IssueTimeSpent">{issue.timeSpent}</div>*/}
+          <div className="IssueTimeSpent">
+            <span className="IssueTitle">Time spent: </span>
+            <span>{prettySeconds(issue.timeSpent)}</span>
+          </div>
         </td>
         {issue.repositories.map(rep => <IssueRepository repository={rep}/>)}
       </tr>

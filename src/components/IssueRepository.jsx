@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import prIcon from '../icons/stash-pull-request.png';
 import branchIcon from '../icons/stash-branch.png';
+import branchDeletedIcon from '../icons/stash-branch-deleted.png';
 import buildSuccessfulIcon from '../icons/bamboo-build-successful.png';
 import buildFailedIcon from '../icons/bamboo-build-failed.png';
 
@@ -21,6 +22,10 @@ class IssueRepository extends Component {
     return <img src={branchIcon} className="BranchIcon icon" alt="Branch"/>
   }
 
+  renderDeletedBranchIcon() {
+    return <img src={branchDeletedIcon} className="BranchIcon icon" alt="Branch"/>
+  }
+
   renderBuildStatus(status) {
     if (status === 'SUCCESSFUL') {
       return <img src={buildSuccessfulIcon} className="BuildIcon icon" alt="Build success"/>
@@ -34,7 +39,7 @@ class IssueRepository extends Component {
     return (
       <div className="BranchRow">
         {/*<span>{branchCombined.branchName}</span>*/}
-        <span> {branchCombined.branches ? branchCombined.branches.map(b => this.renderBranchIcon()) : null}</span>
+        <span> {branchCombined.branches ? branchCombined.branches.map(b => this.renderBranchIcon()) : this.renderDeletedBranchIcon()}</span>
         <span> {branchCombined.pullRequests ? branchCombined.pullRequests.map(pr => <span>{this.renderRrStatus(pr.status)}</span>) : null}</span>
       </div>
     );

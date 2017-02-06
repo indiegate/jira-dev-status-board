@@ -64,6 +64,7 @@ table, th, td {
   text-decoration: none;
   text-transform: uppercase;
   margin-bottom: 3px;
+  margin-right: 6px;
   vertical-align: bottom;
 }
 
@@ -133,4 +134,14 @@ table, th, td {
 
 .BuildIcon {
   vertical-align: bottom;
+}
+
+.PrIcon {
+  margin-left: 0;
+  margin-right: 3px;
+}
+
+.BranchIcon {
+  margin-right: 0;
+  margin-left: 5px;
 }
