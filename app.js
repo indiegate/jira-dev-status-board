@@ -80,6 +80,16 @@ const getIssueDetails = issueName => {
   return promise;
 };
 
+app.get('/testIssues', (req, res) => {
+  const issuePromises = ['ENC-2547','ENC-3636'].map(issue => getIssueDetails(issue));
+    Promise.all(issuePromises).then(values => {
+      res.send(values);
+    }).catch(reason => {
+      res.send(reason);
+      console.log(reason);
+    });
+});
+
 app.get('/testIssue', (req, res) => {
   getIssueDetails('ENC-2547') //ENC-2547
     .then(values => res.send([ values ]))
