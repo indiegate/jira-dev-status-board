@@ -81,7 +81,7 @@ const getIssueDetails = issueName => {
 };
 
 app.get('/testIssues', (req, res) => {
-  const issuePromises = ['ENC-2547','ENC-3636'].map(issue => getIssueDetails(issue));
+  const issuePromises = ['ENC-2547','ENC-3636','SC-9293','CAL-16820','SC-9272'].map(issue => getIssueDetails(issue));
     Promise.all(issuePromises).then(values => {
       res.send(values);
     }).catch(reason => {
