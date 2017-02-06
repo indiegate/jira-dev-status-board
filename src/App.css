@@ -52,9 +52,7 @@ table, th, td {
 }
 
 .PrStatus {
-  color: #14892c;
   border: 1px solid;
-  border-color: #60b070;
   background-color: #fff;
   border-radius: 3px;
   display: inline-block;
@@ -66,4 +64,14 @@ table, th, td {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.pr-MERGED {
+  color: #14892c;
+  border-color: #60b070;
+}
+
+.pr-OPEN {
+  border-color: #a5b3c2;
+  color: #4a6785;
 }

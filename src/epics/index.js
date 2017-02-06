@@ -15,7 +15,7 @@ import { processIssue } from '../services/issues';
 export const getFeedsEpic = (action$, { getState }) => action$
     .ofType(APP_MOUNTED)
     .mergeMap(action =>
-      ajax.getJSON(`http://localhost:3000/testIssue`)
+      ajax.getJSON(`http://eg.office.zoomint.com:3000/testIssues`)
         .map(response => issuesReceived(response.map(processIssue)))
     );
 

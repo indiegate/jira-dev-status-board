@@ -12,8 +12,8 @@ class IssueRepository extends Component {
 
   renderRrStatus(status) {
     return <span>
-      <img src={prIcon} className="PrIcon icon" alt="PR"/>
-      <span className="PrStatus">{status}</span>
+      <img src={prIcon} className={`PrIcon icon`} alt="PR"/>
+      <span className={`PrStatus pr-${status}`}>{status}</span>
     </span>;
   }
 
