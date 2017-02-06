@@ -45,10 +45,7 @@ class IssueRepository extends Component {
     return (
       <td>
         <div className="RepositoryName">
-          {name}
-        </div>
-        <div>
-          {this.renderBuildStatus(lastCommitBuild)}
+          {name} {this.renderBuildStatus(lastCommitBuild)}
         </div>
         <div>
           { combined.map(branchCombined => this.renderBranchRow(branchCombined)) }

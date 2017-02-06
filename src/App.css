@@ -59,11 +59,12 @@ table, th, td {
   font-size: 11px;
   font-weight: bold;
   line-height: 99%;
-  margin: 0;
   padding: 2px 5px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+  margin-bottom: 3px;
+  vertical-align: bottom;
 }
 
 .pr-MERGED {
@@ -74,4 +75,62 @@ table, th, td {
 .pr-OPEN {
   border-color: #a5b3c2;
   color: #4a6785;
+}
+
+.pr-DECLINED {
+  border-color: #e8a29b;
+  color: #d04437;
+}
+
+.IssueState {
+  margin: 5px;
+  background: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 99%;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.IssueTitle {
+  margin-left: 5px;
+  color: #707070;
+}
+
+.is-CLOSED {
+  background-color: #14892c;
+  border-color: #14892c;
+  color: #fff;
+}
+
+.is-IN_PROGRESS, .is-IN_TEST {
+  background-color: #ffd351;
+  border-color: #ffd351;
+  color: #594300;
+}
+
+.is-OPEN {
+  background-color: #4a6785;
+  border-color: #4a6785;
+  color: #fff;
+}
+
+.BranchRow {
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+
+.RepositoryName {
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+
+.BuildIcon {
+  vertical-align: bottom;
 }
