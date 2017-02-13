@@ -37,9 +37,25 @@ table, th, td {
   border: 1px solid #ddd;
 }
 
-.RepositoryName, .IssueSummary {
-  margin: 5px;
+td {
+  padding: 5px;
+}
+
+.IssueSummary {
   font-weight: 700;
+  margin-top: 5px;
+}
+
+.IssueTimeSpent {
+  color: #787878;
+  font-style: italic;
+  font-size: smaller;
+}
+
+.RepositoryName {
+  font-weight: 700;
+  white-space: nowrap;
+  margin-bottom: 10px;
 }
 
 .Issue {
@@ -49,6 +65,25 @@ table, th, td {
 .icon {
   margin-left: 5px;
   margin-right: 3px;
+}
+
+.BranchRow {
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+
+.BuildIcon {
+  vertical-align: bottom;
+}
+
+.PrIcon {
+  margin-left: 0;
+  margin-right: 3px;
+}
+
+.BranchIcon {
+  margin-right: 0;
+  margin-left: 5px;
 }
 
 .PrStatus {
@@ -84,72 +119,38 @@ table, th, td {
 }
 
 .IssueState {
-  margin: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   background: #ccc;
   border: 1px solid #ccc;
   border-radius: 3px;
   color: #333;
   display: inline-block;
-  font-size: 11px;
   font-weight: bold;
   line-height: 99%;
   padding: 2px 5px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.IssueTitle {
-  margin-left: 5px;
-  color: #707070;
+  vertical-align: text-top;
+  font-size: 10px;
 }
 
 .is-CLOSED {
-  background-color: #14892c;
-  border-color: #14892c;
-  color: #fff;
+  background-color: #fff;
+  border-color: #b2d8b9;
+  color: #14892c;
 }
 
-.is-IN_PROGRESS, .is-IN_TEST {
-  background-color: #ffd351;
-  border-color: #ffd351;
+.is-IN_PROGRESS, .is-IN_TEST, .is-READY_FOR_TEST {
+  background-color: #fff;
+  border-color: #ffe28c;
   color: #594300;
 }
 
 .is-OPEN {
-  background-color: #4a6785;
-  border-color: #4a6785;
-  color: #fff;
+  background-color: #fff;
+  border-color: #e4e8ed;
+  color: #4a6785;
 }
 
-.BranchRow {
-  white-space: nowrap;
-  margin-bottom: 5px;
-}
-
-.RepositoryName {
-  white-space: nowrap;
-  margin-bottom: 10px;
-}
-
-.BuildIcon {
-  vertical-align: bottom;
-}
-
-.PrIcon {
-  margin-left: 0;
-  margin-right: 3px;
-}
-
-.BranchIcon {
-  margin-right: 0;
-  margin-left: 5px;
-}
-
-.Issue {
-  padding-bottom: 5px;
-}
-
-/*th, td {*/
-  /*border-bottom: 1px solid #ddd;*/
-/*}*/

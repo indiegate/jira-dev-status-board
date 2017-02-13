@@ -4,6 +4,7 @@ import branchIcon from '../icons/stash-branch.png';
 import branchDeletedIcon from '../icons/stash-branch-deleted.png';
 import buildSuccessfulIcon from '../icons/bamboo-build-successful.png';
 import buildFailedIcon from '../icons/bamboo-build-failed.png';
+import buildingIcon from '../icons/icon-building.gif';
 
 class IssueRepository extends Component {
 
@@ -31,6 +32,8 @@ class IssueRepository extends Component {
       return <img src={buildSuccessfulIcon} className="BuildIcon icon" alt="Build success"/>
     } else if (status === 'FAILED'){
       return <img src={buildFailedIcon} className="BuildIcon icon" alt="Build failed"/>
+    } else if (status === 'IN_PROGRESS'){
+      return <img src={buildingIcon} className="BuildIcon icon" alt="Build is in progress"/>
     }
     return null;
   }

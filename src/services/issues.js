@@ -2,7 +2,9 @@ import groupBy from 'lodash/groupBy';
 import mapValues from 'lodash/mapValues';
 
 function calcBuilds(buildsStatus) {
-  if (buildsStatus.failed > 0) {
+  if (buildsStatus.inProgress > 0) {
+    return 'IN_PROGRESS';
+  } else if (buildsStatus.failed > 0) {
     return 'FAILED';
   } else if (buildsStatus.successful > 0) {
     return 'SUCCESSFUL';
