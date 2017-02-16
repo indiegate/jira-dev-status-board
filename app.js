@@ -4,16 +4,28 @@ var Promise = require('promise');
 var rp = require('request-promise');
 var app = express();
 var _ = require('lodash');
+const log = require('simple-node-logger').createSimpleFileLogger('project.log');
 
+const PORT = 4001;
 const JIRA_AUTH = process.env.JIRA_AUTH;
 const AUTH_HEADERS = {
   "Content-Type": "application/json",
   "Authorization": `Basic ${JIRA_AUTH}`,
 };
 
-const SEARCH_PARAMETERS = "(project %3D Encourage OR labels %3D MTENC) AND status in (\"In Progress\", \"Ready for Test\")";
+const SEARCH_PARAMETERS = '(project = Encourage OR labels = MTENC) AND status in ("In Progress", "Ready for Test", "In Test")';
+
+// const SEARCH_PARAMETERS = 'status in("In Progress", "In Test", "Ready for Test") ' +
+//   'AND (labels = Team:ENC OR project = ENC AND issuetype != Epic OR labels = MTENC) ' +
+//   'AND status != Returned ' +
+//   'AND (resolution = Fixed OR resolution is EMPTY) ' +
+//   'ORDER BY Rank ASC';
+
 const JIRA_FILTER_OPTIONS = {
-  url: `http://jira:81/rest/api/2/search?jql=${SEARCH_PARAMETERS}`,
+  url: 'http://jira:81/rest/api/2/search',
+  qs: {
+    jql: SEARCH_PARAMETERS,
+  },
   headers: AUTH_HEADERS,
   json: true,
 };
@@ -74,6 +86,9 @@ const getIssueDetails = issueName => {
     data.commitRepositories.forEach((rep, idx) => {
       rep.lastCommitBuilds = values[idx];
     });
+  }).catch(reason => {
+    console.log(`Stash API error: ${reason.statusCode}`);
+    log.error(reason);
   }).then(() => {
     return data;
   });
@@ -101,16 +116,19 @@ app.get('/testIssue', (req, res) => {
 
 app.get('/issues', (req, res) => {
   rp(JIRA_FILTER_OPTIONS).then(response => {
+    console.log('Requesting issues');
     const issuePromises = response.issues.map(issue => getIssueDetails(issue.id));
     Promise.all(issuePromises).then(values => {
+      console.log(` - sending back: ${values ? values.length : 'nothing'}`);
       res.send(values);
     }).catch(reason => {
       res.send(reason);
-      console.log(reason);
+      console.log(`API Error: ${reason.statusCode}`);
+      log.error(reason);
     });
   })
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(PORT, function () {
+  console.log(`Storyboard backend listening on port ${PORT}!`);
 });
