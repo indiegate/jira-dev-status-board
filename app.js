@@ -8,6 +8,10 @@ const log = require('simple-node-logger').createSimpleFileLogger('project.log');
 
 const PORT = 4001;
 const JIRA_AUTH = process.env.JIRA_AUTH;
+
+const JIRA = 'http://jira.office.zoomint.com:81/rest';
+const STASH = 'http://stash.office.zoomint.com:7990/rest';
+
 const AUTH_HEADERS = {
   "Content-Type": "application/json",
   "Authorization": `Basic ${JIRA_AUTH}`,
@@ -22,7 +26,7 @@ const SEARCH_PARAMETERS = '(project = Encourage OR labels = MTENC) AND status in
 //   'ORDER BY Rank ASC';
 
 const JIRA_FILTER_OPTIONS = {
-  url: 'http://jira:81/rest/api/2/search',
+  url: `${JIRA}/api/2/search`,
   qs: {
     jql: SEARCH_PARAMETERS,
   },
@@ -40,7 +44,7 @@ const getIssueDetails = issueName => {
   let data;
   let repositoriesCommits;
   const promise = rp({
-    url: `http://jira:81/rest/api/2/issue/${issueName}`,
+    url: `${JIRA}/api/2/issue/${issueName}`,
     headers: AUTH_HEADERS,
     json: true,
   }).then(response => {
@@ -52,14 +56,14 @@ const getIssueDetails = issueName => {
       timeSpent: response.fields.timespent
     };
   }).then(() => rp({
-    url: `http://jira:81/rest/dev-status/1.0/issue/detail?issueId=${data.id}&applicationType=stash&dataType=pullrequest`,
+    url: `${JIRA}/dev-status/1.0/issue/detail?issueId=${data.id}&applicationType=stash&dataType=pullrequest`,
     headers: AUTH_HEADERS,
     json: true,
   })).then(response => {
     data.branches = response.detail[0] ? response.detail[0].branches : [];
     data.pullRequests = response.detail[0] ? response.detail[0].pullRequests : [];
   }).then(() => rp({
-    url: `http://jira:81/rest/dev-status/1.0/issue/detail?issueId=${data.id}&applicationType=stash&dataType=repository`,
+    url: `${JIRA}/dev-status/1.0/issue/detail?issueId=${data.id}&applicationType=stash&dataType=repository`,
     headers: AUTH_HEADERS,
     json: true,
   })).then(response => {
@@ -77,7 +81,7 @@ const getIssueDetails = issueName => {
   }).then(() => {
     return Promise.all(repositoriesCommits.map(rep => rep.lastCommit).map(commit => {
       return rp({
-        url: `http://stash:7990/rest/build-status/1.0/commits/stats/${commit.id}`,
+        url: `${STASH}/build-status/1.0/commits/stats/${commit.id}`,
         headers: AUTH_HEADERS,
         json: true
       });
