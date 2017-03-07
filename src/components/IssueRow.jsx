@@ -46,7 +46,7 @@ class IssueRow extends Component {
           </div>
           <div className="IssueSummary"> {issue.summary}</div>
         </td>
-        {issue.repositories.map(rep => <IssueRepository repository={rep}/>)}
+        {issue.repositories.map((rep, idx) => <IssueRepository repository={rep} key={idx}/>)}
       </tr>
     );
   }

@@ -1,3 +1,4 @@
-export const APP_MOUNTED = 'APP_MOUNTED';
-
-export const ISSUES_RECEIVED = 'ISSUES_RECEIVED';
+export const SUBSCRIBE = 'server/SUBSCRIBE';
+export const DATA_RECEIVED = 'DATA_RECEIVED';
+export const REQUEST_FILTERS = 'REQUEST_FILTERS';
+export const FILTERS_RECEIVED = 'FILTERS_RECEIVED';

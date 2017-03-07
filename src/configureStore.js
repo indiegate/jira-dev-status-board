@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import { createStore, applyMiddleware, compose } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-
+import createSocketIoMiddleware from 'redux-socket.io';
 import rootReducer from './reducers';
 
-const epicMiddleware = createEpicMiddleware(require('./epics').default); // eslint-disable-line global-require //TODO remove require
+import io from 'socket.io-client'
+const socket = io('http://localhost:4001');
+const socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 export default function configureStore() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -12,15 +13,15 @@ export default function configureStore() {
         rootReducer,
         composeEnhancers(
             applyMiddleware(
-                epicMiddleware
+                socketIoMiddleware
             )
         )
     );
 
     if (module.hot) {
-        module.hot.accept('./epics', () => {
-            epicMiddleware.replaceEpic(require('./epics').default); // eslint-disable-line global-require
-        });
+        // module.hot.accept('./epics', () => {
+        //     epicMiddleware.replaceEpic(require('./epics').default); // eslint-disable-line global-require
+        // });
 
         module.hot.accept('./reducers', () => {
             store.replaceReducer(require('./reducers')); // eslint-disable-line global-require

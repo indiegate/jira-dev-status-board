@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import prIcon from '../icons/stash-pull-request.png';
-import branchIcon from '../icons/stash-branch.png';
-import branchDeletedIcon from '../icons/stash-branch-deleted.png';
-import buildSuccessfulIcon from '../icons/bamboo-build-successful.png';
-import buildFailedIcon from '../icons/bamboo-build-failed.png';
-import buildingIcon from '../icons/icon-building.gif';
+import pullRequestIcon from '../icons/pull-request.png';
+import branchIcon from '../icons/branch.png';
+import branchDeletedIcon from '../icons/branch-deleted.png';
+import buildSuccessfulIcon from '../icons/build-successful.png';
+import buildFailedIcon from '../icons/build-failed.png';
+import buildInProgressIcon from '../icons/build-in-progress.gif';
 
 class IssueRepository extends Component {
 
@@ -12,15 +12,15 @@ class IssueRepository extends Component {
     repository: React.PropTypes.object,
   };
 
-  renderRrStatus(status) {
-    return <span>
-      <img src={prIcon} className={`PrIcon icon`} alt="PR"/>
+  renderRrStatus(status, idx) {
+    return <span key={idx}>
+      <img src={pullRequestIcon} className={`PrIcon icon`} alt="PR"/>
       <span className={`PrStatus pr-${status}`}>{status}</span>
     </span>;
   }
 
-  renderBranchIcon() {
-    return <img src={branchIcon} className="BranchIcon icon" alt="Branch"/>
+  renderBranchIcon(idx) {
+    return <img src={branchIcon} className="BranchIcon icon" alt="Branch" key={idx}/>
   }
 
   renderDeletedBranchIcon() {
@@ -33,17 +33,17 @@ class IssueRepository extends Component {
     } else if (status === 'FAILED'){
       return <img src={buildFailedIcon} className="BuildIcon icon" alt="Build failed"/>
     } else if (status === 'IN_PROGRESS'){
-      return <img src={buildingIcon} className="BuildIcon icon" alt="Build is in progress"/>
+      return <img src={buildInProgressIcon} className="BuildIcon icon" alt="Build is in progress"/>
     }
     return null;
   }
 
-  renderBranchRow(branchCombined) {
+  renderBranchRow(branchCombined, idx) {
     return (
-      <div className="BranchRow">
+      <div className="BranchRow" key={idx}>
         {/*<span>{branchCombined.branchName}</span>*/}
-        <span> {branchCombined.branches ? branchCombined.branches.map(b => this.renderBranchIcon()) : this.renderDeletedBranchIcon()}</span>
-        <span> {branchCombined.pullRequests ? branchCombined.pullRequests.map(pr => <span>{this.renderRrStatus(pr.status)}</span>) : null}</span>
+        <span> {branchCombined.branches ? branchCombined.branches.map((b, idx) => this.renderBranchIcon(idx)) : this.renderDeletedBranchIcon()}</span>
+        <span> {branchCombined.pullRequests ? branchCombined.pullRequests.map((pr, idx) => this.renderRrStatus(pr.status, idx)) : null}</span>
       </div>
     );
   }
@@ -56,12 +56,11 @@ class IssueRepository extends Component {
           {name} {this.renderBuildStatus(lastCommitBuild)}
         </div>
         <div>
-          { combined.map(branchCombined => this.renderBranchRow(branchCombined)) }
+          {combined.map((branchCombined, idx) => this.renderBranchRow(branchCombined, idx))}
         </div>
       </td>
     );
   }
 }
-
 
 export default IssueRepository;

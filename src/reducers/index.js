@@ -1,13 +1,18 @@
 import createReducer from '../createReducer';
-import { ISSUES_RECEIVED } from '../actionTypes';
+import { DATA_RECEIVED, FILTERS_RECEIVED } from '../actionTypes';
+import { processIssue } from '../services/issues';
 
 const initialState = {
-    issues: [],
-    detail: null,
+    data: [],
+    filters: {},
 };
 
 export default createReducer({
-    [ISSUES_RECEIVED](state, { payload }) {
-        return Object.assign({}, state, { issues: payload });
-    },
+  [DATA_RECEIVED](state, { payload }) {
+    return Object.assign({}, state, { data: payload.map(processIssue) });
+  },
+  [FILTERS_RECEIVED](state, { payload }) {
+    return Object.assign({}, state, { filters: payload });
+  },
+
 }, initialState);

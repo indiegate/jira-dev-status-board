@@ -1,19 +1,27 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import { appMounted } from './actions';
+import { subscribe, requestFilters } from './actions';
 import IssueRow from './components/IssueRow';
 import './App.css';
 
 class App extends Component {
 
   static propTypes = {
-    issues: React.PropTypes.array,
-    appMounted: React.PropTypes.func.isRequired,
+    data: React.PropTypes.array,
+    filters: React.PropTypes.object,
+    subscribe: React.PropTypes.func.isRequired,
+    requestFilters: React.PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.appMounted();
+    const path = window.location.pathname.substring(1);
+
+    if (path) {
+      this.props.subscribe(path);
+    } else {
+      this.props.requestFilters();
+    }
   }
 
   render() {
@@ -23,9 +31,9 @@ class App extends Component {
           <h2>storyboard/</h2>
         </div>
         <div>
-          <table border="1">
+          <table>
             <tbody>
-              {this.props.issues.map(issue => <IssueRow issue={issue}/>)}
+              {this.props.data.map((issue, idx) => <IssueRow issue={issue} key={idx}/>)}
             </tbody>
           </table>
         </div>
@@ -35,11 +43,13 @@ class App extends Component {
 }
 
 const actions = {
-  appMounted,
+  subscribe,
+  requestFilters
 };
 
 const mapStateToProps = state => ({
-  issues: state.issues,
+  data: state.data,
+  filters: state.filters,
 });
 
 export default connect(mapStateToProps, actions)(App);
