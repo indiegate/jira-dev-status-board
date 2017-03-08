@@ -2,12 +2,15 @@
   "name": "jira-dev-status-board",
   "version": "0.1.0",
   "description": "",
+  "author": "Eldar Gabidullin",
+  "license": "GPL-3.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon app.js",
+    "client": "cd client && npm start",
+    "start": "concurrently 'npm run server' 'npm run client'"
   },
-  "author": "",
-  "license": "GPL-3.0",
   "dependencies": {
     "express": "^4.14.1",
     "lodash": "^4.17.4",
@@ -16,5 +19,9 @@
     "request-promise": "^4.1.1",
     "simple-node-logger": "^0.93.14",
     "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "nodemon": "^1.11.0"
   }
 }
