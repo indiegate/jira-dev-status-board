@@ -1,0 +1,155 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  padding: 1px;
+  color: white;
+}
+
+.App-header h2 {
+  text-align: left;
+  margin: 10px;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  vertical-align: top;
+  border: 1px solid #ddd;
+}
+
+td {
+  padding: 5px;
+}
+
+.IssueSummary {
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.IssueTimeSpent {
+  color: #787878;
+  font-style: italic;
+  font-size: smaller;
+}
+
+.RepositoryName {
+  font-weight: 700;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+
+.Issue {
+  text-align: left;
+}
+
+.icon {
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+.BranchRow {
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+
+.BuildIcon {
+  vertical-align: bottom;
+}
+
+.PrIcon {
+  margin-left: 0;
+  margin-right: 3px;
+}
+
+.BranchIcon {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.PrStatus {
+  border: 1px solid;
+  background-color: #fff;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 99%;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  margin-right: 6px;
+  vertical-align: bottom;
+}
+
+.pr-MERGED {
+  color: #14892c;
+  border-color: #60b070;
+}
+
+.pr-OPEN {
+  border-color: #a5b3c2;
+  color: #4a6785;
+}
+
+.pr-DECLINED {
+  border-color: #e8a29b;
+  color: #d04437;
+}
+
+.IssueState {
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 99%;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: text-top;
+  font-size: 10px;
+}
+
+.is-CLOSED {
+  background-color: #fff;
+  border-color: #b2d8b9;
+  color: #14892c;
+}
+
+.is-IN_PROGRESS, .is-IN_TEST, .is-READY_FOR_TEST {
+  background-color: #fff;
+  border-color: #ffe28c;
+  color: #594300;
+}
+
+.is-OPEN {
+  background-color: #fff;
+  border-color: #e4e8ed;
+  color: #4a6785;
+}
