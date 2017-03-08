@@ -1,0 +1,10 @@
+{
+  "basicAuth": "BASE64_ENCODED_PAIR_LOGIN:PASSWORD",
+  "port": 4001,
+  "refreshIntervalSeconds": 60,
+  "jira": "http://jira.office.zoomint.com:81/rest",
+  "stash": "http://stash.office.zoomint.com:7990/rest",
+  "filters": {
+    "enc": "(project = Encourage OR labels = MTENC) AND status in (\"In Progress\", \"Ready for Test\", \"In Test\")"
+  }
+}
