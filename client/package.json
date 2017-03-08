@@ -1,5 +1,5 @@
 {
-  "name": "storyboard-ui",
+  "name": "jira-dev-status-board-client",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {

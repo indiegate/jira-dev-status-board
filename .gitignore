@@ -16,3 +16,6 @@ npm-debug.log
 
 # IntelliJ IDEA/WebStorm
 .idea
+
+# logs
+*.log
