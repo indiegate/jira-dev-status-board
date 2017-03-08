@@ -18,12 +18,6 @@ console.log('Starting app..');
 console.log('Reading settings file!');
 const settings = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 const testPromise = () => {
   return new Promise(
     function(resolve, reject) {

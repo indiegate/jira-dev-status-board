@@ -1,6 +1,6 @@
 {
   "basicAuth": "BASE64_ENCODED_PAIR_LOGIN:PASSWORD",
-  "port": 4001,
+  "port": 3001,
   "refreshIntervalSeconds": 60,
   "jira": "http://your_jira_server:port/rest",
   "stash": "http://your_stash_server:port/rest",

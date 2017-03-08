@@ -4,7 +4,7 @@ import createSocketIoMiddleware from 'redux-socket.io';
 import rootReducer from './reducers';
 
 import io from 'socket.io-client'
-const socket = io('http://localhost:4001');
+const socket = io();
 const socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 export default function configureStore() {
