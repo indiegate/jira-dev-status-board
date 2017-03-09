@@ -1,10 +1,11 @@
 import createReducer from '../createReducer';
-import { DATA_RECEIVED, FILTERS_RECEIVED } from '../actionTypes';
+import { DATA_RECEIVED, FILTERS_RECEIVED, REQUEST_FILTERS, SUBSCRIBE } from '../actionTypes';
 import { processIssue } from '../services/issues';
 
 const initialState = {
-    data: [],
-    filters: {},
+  data: [],
+  filters: {},
+  activeFilter: undefined,
 };
 
 export default createReducer({
@@ -14,5 +15,10 @@ export default createReducer({
   [FILTERS_RECEIVED](state, { payload }) {
     return Object.assign({}, state, { filters: payload });
   },
-
+  [REQUEST_FILTERS](state) {
+    return Object.assign({}, state, { activeFilter: undefined });
+  },
+  [SUBSCRIBE](state, { payload }) {
+    return Object.assign({}, state, { activeFilter: payload });
+  },
 }, initialState);

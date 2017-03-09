@@ -1,3 +1,4 @@
 {
-  "ignore": ["client/*", "README"]
+  "ignore": ["client/*", "README"],
+  "delay": "2500"
 }

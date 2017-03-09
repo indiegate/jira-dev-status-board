@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { subscribe, requestFilters } from './actions';
-import IssueRow from './components/IssueRow';
 import './App.css';
+
+import Filters from './components/Filters';
+import Board from './components/Board';
 
 class App extends Component {
 
   static propTypes = {
+    activeFilter: React.PropTypes.any,
     data: React.PropTypes.array,
     filters: React.PropTypes.object,
     subscribe: React.PropTypes.func.isRequired,
@@ -25,17 +28,18 @@ class App extends Component {
   }
 
   render() {
+    const { data, activeFilter, filters } = this.props;
     return (
       <div className="App">
         <div className="App-header">
           <h2>storyboard/</h2>
         </div>
         <div>
-          <table>
-            <tbody>
-              {this.props.data.map((issue, idx) => <IssueRow issue={issue} key={idx}/>)}
-            </tbody>
-          </table>
+          {
+            activeFilter
+              ? <Board data={data} activeFilter={activeFilter}/>
+              : <Filters onSelect={this.props.subscribe} filters={filters}/>
+          }
         </div>
       </div>
     );
@@ -48,6 +52,7 @@ const actions = {
 };
 
 const mapStateToProps = state => ({
+  activeFilter: state.activeFilter,
   data: state.data,
   filters: state.filters,
 });

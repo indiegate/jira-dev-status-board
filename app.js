@@ -78,7 +78,8 @@ io.on('connection', socket => {
         console.log(`Emit cached data to ${socket.id}`);
       }
     } else if (action.type === 'server/REQUEST_FILTERS') {
-      socket.emit('acton', filtersReceived(settings.filters));
+      console.log(`Emit filters to ${socket.id}`);
+      socket.emit('action', filtersReceived(settings.filters));
     }
   });
   socket.on('disconnect', function() {

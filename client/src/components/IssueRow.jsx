@@ -10,7 +10,7 @@ class IssueRow extends Component {
   calcHours(seconds) {
     if (!seconds) return '';
     const hours   = Math.floor(seconds / 3600);
-    const minutes = Math.floor(seconds / 60) % 60
+    const minutes = Math.floor(seconds / 60) % 60;
     return `${hours ? `${hours} h ` : ''}${minutes ? `${minutes} mins` : ''}`;
   }
 

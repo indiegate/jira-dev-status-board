@@ -1,4 +1,4 @@
+export const REQUEST_FILTERS = 'server/REQUEST_FILTERS';
 export const SUBSCRIBE = 'server/SUBSCRIBE';
-export const DATA_RECEIVED = 'DATA_RECEIVED';
-export const REQUEST_FILTERS = 'REQUEST_FILTERS';
 export const FILTERS_RECEIVED = 'FILTERS_RECEIVED';
+export const DATA_RECEIVED = 'DATA_RECEIVED';
