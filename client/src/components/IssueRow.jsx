@@ -37,17 +37,19 @@ class IssueRow extends Component {
   render() {
     const issue = this.props.issue;
     return (
-      <tr>
-        <td className="Issue">
-          <div>
-            {issue.key}
-            {this.renderIssueState(issue.issueState)}
-            {this.renderTimeSpent(issue.timeSpent)}
-          </div>
-          <div className="IssueSummary"> {issue.summary}</div>
-        </td>
-        {issue.repositories.map((rep, idx) => <IssueRepository repository={rep} key={idx}/>)}
-      </tr>
+      <tbody>
+        <tr>
+          <td className="Issue" width="20%" minWidth="20%">
+            <div>
+              {issue.key}
+              {this.renderIssueState(issue.issueState)}
+              {this.renderTimeSpent(issue.timeSpent)}
+            </div>
+            <div className="IssueSummary"> {issue.summary}</div>
+          </td>
+          {issue.repositories.map((rep, idx) => <IssueRepository repository={rep} key={idx}/>)}
+        </tr>
+      </tbody>
     );
   }
 }

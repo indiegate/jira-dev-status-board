@@ -1,19 +1,25 @@
-.App {
-  text-align: center;
+.app {
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
+.header {
   background-color: #222;
   padding: 1px;
   color: white;
 }
 
-.App-header h2 {
+.content {
+  padding: 2rem 1rem;
+}
+
+
+.logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+
+.header h2 {
   text-align: left;
   margin: 10px;
 }
@@ -30,6 +36,10 @@
 table {
   width: 100%;
   border-collapse: collapse;
+}
+
+tbody {
+  width: 100%;
 }
 
 table, th, td {

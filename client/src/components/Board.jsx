@@ -3,9 +3,7 @@ import IssueRow from './IssueRow';
 
 const Board = ({ data, activeFilter }) =>
   <table>
-    <tbody>
-      {data.map((issue, idx) => <IssueRow issue={issue} key={idx}/>)}
-    </tbody>
+    {data.map((issue, idx) => <IssueRow issue={issue} key={idx}/>)}
   </table>;
 
 Board.propTypes = {

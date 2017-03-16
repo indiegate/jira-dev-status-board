@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { subscribe, requestFilters } from './actions';
-import './App.css';
+import styles from './App.css';
 
 import Filters from './components/Filters';
 import Board from './components/Board';
@@ -30,11 +30,11 @@ class App extends Component {
   render() {
     const { data, activeFilter, filters } = this.props;
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>storyboard/</h2>
+      <div className={styles.app}>
+        <div className={styles.header}>
+          <h2>jira-dev-status-board/</h2>
         </div>
-        <div>
+        <div className={styles.content}>
           {
             activeFilter
               ? <Board data={data} activeFilter={activeFilter}/>
