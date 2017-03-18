@@ -4,9 +4,9 @@ import Branch from './Branch';
 import IssueSummary from './IssueSummary';
 import RepositoryHeader from './RepositoryHeader';
 
-import styles from './IssueRow.css';
+import styles from './Issue.css';
 
-const IssueRow = ({ issue, columnsMax }) => (
+const Issue = ({ issue, columnsMax }) => (
   <tbody className={styles.row}>
     <tr>
       <td width="20%" rowSpan={issue.branchRepositories.length + 1}>
@@ -19,8 +19,8 @@ const IssueRow = ({ issue, columnsMax }) => (
   </tbody>
 );
 
-IssueRow.propTypes = {
+Issue.propTypes = {
   issue: React.PropTypes.object.isRequired,
 };
 
-export default IssueRow;
+export default Issue;
