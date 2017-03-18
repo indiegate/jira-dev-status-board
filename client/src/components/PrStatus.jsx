@@ -1,16 +1,21 @@
 import pullRequestIcon from '../icons/pull-request.png';
 import React from 'react';
 
-//import styles from './PrStatus.css';
+import styles from './PrStatus.css';
 
-const PrStatus = ({ status }) =>
-  <span>
-    <img src={pullRequestIcon} className={`PrIcon icon`} alt="Pull Request"/>
-    <span className={`PrStatus pr-${status}`}>{status}</span>
-  </span>;
+const getTitle = (pr) => `Pull Request ${pr.id}: ${pr.source.branch} -> ${pr.destination.branch}`;
+
+const PrStatus = ({ pullRequest }) =>
+  <a href={pullRequest.url} title={getTitle(pullRequest)}>
+    <img src={pullRequestIcon}
+         className={styles.icon}
+         alt="Pull Request"
+         />
+    <span className={`${styles.status} ${styles[`${pullRequest.status}`]}`}>{pullRequest.status}</span>
+  </a>;
 
 PrStatus.propTypes = {
-  status: React.PropTypes.string.isRequired,
+  pullRequest: React.PropTypes.object.isRequired,
 };
 
 export default PrStatus;

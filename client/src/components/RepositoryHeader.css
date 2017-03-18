@@ -1,0 +1,10 @@
+.icon {
+    vertical-align: bottom;
+    height: 24px;
+    width: 24px;
+    margin-right: 5px;
+}
+
+.line {
+    white-space: nowrap;
+}

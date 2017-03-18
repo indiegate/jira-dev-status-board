@@ -1,9 +1,9 @@
 import React from 'react';
 import IssueRow from './IssueRow';
 
-const Board = ({ data, activeFilter }) =>
+const Board = ({ data, columnsMax, activeFilter }) =>
   <table>
-    {data.map((issue, idx) => <IssueRow issue={issue} key={idx}/>)}
+    {data.map((issue, idx) => <IssueRow issue={issue} columnsMax={columnsMax} key={idx}/>)}
   </table>;
 
 Board.propTypes = {

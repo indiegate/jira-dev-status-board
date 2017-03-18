@@ -1,4 +1,6 @@
 import React from 'react';
 import branchDeletedIcon from '../../icons/branch-deleted.png';
 
-export default () => <img src={branchDeletedIcon} className="BranchIcon icon" alt="Deleted branch"/>;
+import styles from '../Icon.css';
+
+export default () => <img src={branchDeletedIcon} className={styles.icon} alt="Deleted branch"/>;

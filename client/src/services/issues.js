@@ -1,5 +1,7 @@
-import groupBy from 'lodash/groupBy';
-import mapValues from 'lodash/mapValues';
+import flatten from 'lodash/flatten';
+import uniqBy from 'lodash/uniqBy';
+import uniq from 'lodash/uniq';
+import sortBy from 'lodash/sortBy';
 
 function calcBuilds(buildsStatus) {
   if (buildsStatus.inProgress > 0) {
@@ -12,56 +14,61 @@ function calcBuilds(buildsStatus) {
   return 'NONE';
 }
 
+function findBuild(repositoryUrl, repositories) {
+  const reps = repositories.filter(r => r.url === repositoryUrl);
+  if (reps.length > 0) {
+    return calcBuilds(reps[0].lastCommitBuilds)
+  }
+  return undefined;
+}
+
 export function processIssue(issue) {
-  const groupedBranches = groupBy(issue.branches, branch => (`${branch.repository.avatarDescription}/${branch.repository.name}`));
-  const groupsMap = mapValues(groupedBranches, value => ({ branches: value }));
 
-  const groupedPullRequsts = groupBy(issue.pullRequests, pr => (`${pr.source.repository.avatarDescription}/${pr.source.repository.name}`));
+  const repositories = sortBy(uniqBy(flatten([
+    issue.branches.map(b => b.repository),
+    issue.pullRequests.map(pr => pr.source.repository,
+    issue.commitRepositories)
+  ]), rep => rep.url).map(rep => ({
+    projectAvatar: rep.avatar,
+    url: rep.url,
+    project: rep.avatarDescription,
+    name: rep.name,
+    build: findBuild(rep.url, issue.commitRepositories),
+  })), ['project', 'name']);
 
-  Object.keys(groupedPullRequsts).forEach(key => {
-    if (!groupsMap[key]) {
-      groupsMap[key] = {};
-    }
-    groupsMap[key].pullRequests = groupedPullRequsts[key];
-  });
-
-  issue.commitRepositories.forEach(rep => {
-    const n = `${rep.avatarDescription}/${rep.name}`;
-    if (!groupsMap[n]) {
-      groupsMap[n] = {};
-    }
-    groupsMap[n].lastCommitBuild = calcBuilds(rep.lastCommitBuilds);
-  });
-
-  const keys = Object.keys(groupsMap);
-  issue.repositories = keys.map(key => ({
-    name: key,
-    ...groupsMap[key],
+  // all existing branches
+  const branches = issue.branches.map(b => ({
+    name: b.name,
+    url: b.url,
+    deleted: false,
+    createPullRequestUrl: b.createPullRequestUrl,
+    repositoryUrl: b.repository.url,
   }));
 
-  issue.repositories.forEach(rep => {
-    const map = {};
+  const branchNames = sortBy(uniq(branches.map(b => b.name)), b => b);
 
-    const bMap = groupBy(rep.branches, b => b.name);
-    const prMap = groupBy(rep.pullRequests, p=>p.source.branch);
+  const branchRepositories = branchNames.map(bn => ({
+      branchName: bn,
+      repositories: repositories.map(r => {
 
-    Object.keys(bMap).forEach(key => {
-      map[key] = { branches: bMap[key]}
-    });
+        const relatedBranches = branches.filter(b => b.name === bn && b.repositoryUrl === r.url);
+        const pullRequests =
+          issue.pullRequests.filter(pr => pr.source.branch === bn && pr.source.repository.url === r.url);
+        const branch = relatedBranches.length > 0
+          ? relatedBranches[0]
+          : pullRequests.length > 0 ? { name: bn, deleted: true } : null;
 
-    Object.keys(prMap).forEach(key => {
-      if (!map[key]) {
-        map[key] = {};
-      }
-      map[key].pullRequests = prMap[key];
-    });
+        return { branch, pullRequests };
+    })
+  }));
 
-    const ks = Object.keys(map);
-    rep.combined = ks.map(key => ({
-      branchName: key,
-      ...map[key],
-    }));
-  });
-
-  return issue;
+  return {
+    key: issue.key,
+    id:issue.id,
+    summary: issue.summary,
+    issueState: issue.issueState,
+    timeSpent: issue.timeSpent,
+    repositoryHeaders: repositories,
+    branchRepositories,
+  };
 }

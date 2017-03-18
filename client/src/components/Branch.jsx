@@ -3,30 +3,25 @@ import BranchIcon from './icons/BranchIcon';
 import PrStatus from './PrStatus';
 import DeletedBranchIcon from './icons/DeletedBranchIcon';
 
-//import styles from './Branch.css';
-
-const Branch = ({ branchCombined }) =>
-  <div>
-    {/*<span>{branchCombined.branchName}</span>*/}
-    <span>
-      {
-        branchCombined.branches
-          ? branchCombined.branches.map((b, idx) => <BranchIcon key={idx}/>)
-          : <DeletedBranchIcon/>
-      }
-    </span>
-    <span>
-      {
-        branchCombined.pullRequests
-          ? branchCombined.pullRequests.map((pr, idx) => <PrStatus status={pr.status} key={idx}/>)
+const Branch = ({ branchRepository, columnsMax }) =>
+  <tr>
+    <td width="25%">{branchRepository.branchName}</td>
+    {branchRepository.repositories.map((rep, idx) =>
+      <td key={idx}>
+        {rep.branch
+          ? rep.branch.deleted ? <DeletedBranchIcon/> : <BranchIcon branch={rep.branch}/>
           : null
-      }
-    </span>
-  </div>;
-
+        }
+        {rep.pullRequests.map((pr, idx) => <PrStatus pullRequest={pr} key={idx}/>)}
+      </td>)
+    }
+    {
+      [...Array((columnsMax - branchRepository.repositories.length))].map((e, idx) => <td key={idx}/>)
+    }
+  </tr>;
 
 Branch.propTypes = {
-  branchCombined: React.PropTypes.any.isRequired,
+  branchRepository: React.PropTypes.object.isRequired,
 };
 
 export default Branch;

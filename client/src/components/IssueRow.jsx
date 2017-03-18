@@ -1,58 +1,26 @@
-import React, {Component} from 'react';
-import IssueRepository from './IssueRepository';
+import React from 'react';
 
-class IssueRow extends Component {
+import Branch from './Branch';
+import IssueSummary from './IssueSummary';
+import RepositoryHeader from './RepositoryHeader';
 
-  static propTypes = {
-    issue: React.PropTypes.object,
-  };
+import styles from './IssueRow.css';
 
-  calcHours(seconds) {
-    if (!seconds) return '';
-    const hours   = Math.floor(seconds / 3600);
-    const minutes = Math.floor(seconds / 60) % 60;
-    return `${hours ? `${hours} h ` : ''}${minutes ? `${minutes} mins` : ''}`;
-  }
+const IssueRow = ({ issue, columnsMax }) => (
+  <tbody className={styles.row}>
+    <tr>
+      <td width="20%" rowSpan={issue.branchRepositories.length + 1}>
+        <IssueSummary issue={issue}/>
+      </td>
+      <td></td>
+      {issue.repositoryHeaders.map((rep, idx) => <td key={idx}><RepositoryHeader repository={rep}/></td>)}
+    </tr>
+    {issue.branchRepositories.map((br, idx) => <Branch branchRepository={br} columnsMax={columnsMax} key={idx}/>)}
+  </tbody>
+);
 
-  processState(state) {
-    return state.toUpperCase().replace(/ /g, '_');
-  }
-
-  renderTimeSpent(timeSpent) {
-    return (
-      timeSpent
-      ? <span className="IssueTimeSpent">{this.calcHours(timeSpent)}</span>
-      : null
-    );
-  }
-
-  renderIssueState(issueState) {
-    return (
-      <span className={`IssueState is-${this.processState(issueState)}`}>
-        {issueState}
-      </span>
-    );
-  }
-
-  render() {
-    const issue = this.props.issue;
-    return (
-      <tbody>
-        <tr>
-          <td className="Issue" width="20%" minWidth="20%">
-            <div>
-              {issue.key}
-              {this.renderIssueState(issue.issueState)}
-              {this.renderTimeSpent(issue.timeSpent)}
-            </div>
-            <div className="IssueSummary"> {issue.summary}</div>
-          </td>
-          {issue.repositories.map((rep, idx) => <IssueRepository repository={rep} key={idx}/>)}
-        </tr>
-      </tbody>
-    );
-  }
-}
-
+IssueRow.propTypes = {
+  issue: React.PropTypes.object.isRequired,
+};
 
 export default IssueRow;

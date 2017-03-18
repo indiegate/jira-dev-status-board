@@ -1,37 +1,35 @@
-import React, {Component} from 'react';
+import React from 'react';
+
 import styles from './IssueSummary.css';
 
-// calcHours(seconds) {
-//   if (!seconds) return '';
-//   const hours   = Math.floor(seconds / 3600);
-//   const minutes = Math.floor(seconds / 60) % 60;
-//   return `${hours ? `${hours} h ` : ''}${minutes ? `${minutes} mins` : ''}`;
-// }
-//
-// processState(state) {
-//   return state.toUpperCase().replace(/ /g, '_');
-// }
-//
-// renderTimeSpent(timeSpent) {
-//   return (
-//     timeSpent
-//       ? <span className="IssueTimeSpent">{this.calcHours(timeSpent)}</span>
-//       : null
-//   );
-// }
-//
-// renderIssueState(issueState) {
-//   return (
-//     <span className={`IssueState is-${this.processState(issueState)}`}>
-//         {issueState}
-//       </span>
-//   );
-// }
+const calcHours = seconds => {
+  if (!seconds) return '';
+  const hours   = Math.floor(seconds / 3600);
+  const minutes = Math.floor(seconds / 60) % 60;
+  return `${hours ? `${hours} h ` : ''}${minutes ? `${minutes} mins` : ''}`;
+};
+
+const processState = state => state.toUpperCase().replace(/ /g, '_');
+
+const renderTimeSpent = timeSpent =>
+  timeSpent
+    ? <span className={styles.timeSpent}>{calcHours(timeSpent)}</span>
+    : null;
+
+const renderIssueState = issueState =>
+  <span className={`${styles.state} ${styles[processState(issueState)]}`}>
+    {issueState}
+  </span>;
 
 const IssueSummary = ({ issue }) =>
-  <td className={styles.issueSummary}>
-    <div> {issue.summary}</div>
-  </td>;
+  <div className={styles.issueSummary}>
+    <div>
+      <span>{issue.key}</span>
+      {renderIssueState(issue.issueState)}
+      {renderTimeSpent(issue.timeSpent)}
+    </div>
+    <div className={styles.summary}>{issue.summary}</div>
+  </div>;
 
 IssueSummary.propTypes = {
   issue: React.PropTypes.object.isRequired,

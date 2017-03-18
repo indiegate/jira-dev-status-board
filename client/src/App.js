@@ -12,6 +12,7 @@ class App extends Component {
   static propTypes = {
     activeFilter: React.PropTypes.any,
     data: React.PropTypes.array,
+    columnsMax: React.PropTypes.number,
     filters: React.PropTypes.object,
     subscribe: React.PropTypes.func.isRequired,
     requestFilters: React.PropTypes.func.isRequired,
@@ -28,7 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { data, activeFilter, filters } = this.props;
+    const { data, activeFilter, columnsMax, filters } = this.props;
     return (
       <div className={styles.app}>
         <div className={styles.header}>
@@ -37,7 +38,7 @@ class App extends Component {
         <div className={styles.content}>
           {
             activeFilter
-              ? <Board data={data} activeFilter={activeFilter}/>
+              ? <Board data={data} columnsMax={columnsMax} activeFilter={activeFilter}/>
               : <Filters onSelect={this.props.subscribe} filters={filters}/>
           }
         </div>
@@ -54,6 +55,7 @@ const actions = {
 const mapStateToProps = state => ({
   activeFilter: state.activeFilter,
   data: state.data,
+  columnsMax: state.columnsMax,
   filters: state.filters,
 });
 

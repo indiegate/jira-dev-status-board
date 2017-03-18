@@ -1,3 +1,46 @@
-.issueSummary {
-    width: 20%;
+.summary {
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.timeSpent {
+    color: #787878;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.state {
+    margin-left: 5px;
+    margin-right: 5px;
+    background: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #333;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 99%;
+    padding: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: text-bottom;
+    font-size: 10px;
+}
+
+.CLOSED {
+    background-color: #fff;
+    border-color: #b2d8b9;
+    color: #14892c;
+}
+
+.IN_PROGRESS, .IN_TEST, .READY_FOR_TEST {
+    background-color: #fff;
+    border-color: #ffe28c;
+    color: #594300;
+}
+
+.OPEN {
+    background-color: #fff;
+    border-color: #e4e8ed;
+    color: #4a6785;
 }
