@@ -16,6 +16,7 @@ const Branch = ({ branchRepository, columnsMax }) =>
       </td>)
     }
     {
+      // hack to show full row border
       [...Array((columnsMax - branchRepository.repositories.length))].map((e, idx) => <td key={idx}/>)
     }
   </tr>;

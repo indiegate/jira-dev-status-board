@@ -12,4 +12,3 @@ Board.propTypes = {
 };
 
 export default Board;
-
