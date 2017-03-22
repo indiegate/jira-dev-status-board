@@ -2,9 +2,10 @@ import React from 'react';
 import BranchIcon from './icons/BranchIcon';
 import PrStatus from './PrStatus';
 import DeletedBranchIcon from './icons/DeletedBranchIcon';
+import styles from './Branch.css';
 
 const Branch = ({ branchRepository, columnsMax }) =>
-  <tr>
+  <tr className={styles.zebra}>
     <td width="25%">{branchRepository.branchName}</td>
     {branchRepository.repositories.map((rep, idx) =>
       <td key={idx}>
