@@ -8,48 +8,11 @@
   color: white;
 }
 
-.content {
-  padding: 2rem 1rem;
-}
-
-.logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .header h2 {
   text-align: left;
   margin: 10px;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-tbody {
-  width: 100%;
-  border-collapse: collapse;
-  border-bottom: 1px solid #818181;
-}
-
-/*tbody tr:last-child {*/
-  /*border-bottom: 2px solid #818181;*/
-/*}*/
-
-table, th, td {
-  vertical-align: top;
-  /*border: 1px solid #ddd;*/
-}
-td {
-  padding: 5px 10px 5px 10px;
+.content {
+  padding: 2rem 1rem;
 }
