@@ -18,27 +18,6 @@ console.log('Starting app..');
 console.log('Reading settings file!');
 const settings = JSON.parse(fs.readFileSync('settings.json', 'utf8'));
 
-const testData = JSON.parse(fs.readFileSync('sample-data-full.json', 'utf8'));
-
-const testPromise = () => {
-  return new Promise(
-    function(resolve, reject) {
-      setTimeout(() => {
-        resolve('Resolved test data!');
-      }, 100);
-    }
-  );
-};
-
-const saveDataToFile = (data) => {
-  fs.writeFile(`sample-data-last.json`, JSON.stringify(data), function(err) {
-    if(err) {
-      return console.log(err);
-    }
-    console.log("The file was saved!");
-  });
-};
-
 http.listen(settings.port, function () {
   console.log(`Storyboard backend listening on port ${settings.port}!`);
 });
@@ -54,7 +33,6 @@ const updateRoom = (room, roomName) => {
   if (room.sockets.size > 0) {
     JiraService.getIssues(roomName, settings).then(data => {
       console.log(`Emit data to ${roomName}`);
-      //const data = testData;
       room.data = data;
       io.to(roomName).emit("action", issuesReceived(data));
     });
