@@ -2,6 +2,11 @@
 
 }
 
+.error {
+  float: right;
+  color: red;
+}
+
 .header {
   background-color: #222;
   padding: 1px;

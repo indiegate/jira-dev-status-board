@@ -29,11 +29,18 @@ class App extends Component {
   }
 
   render() {
-    const { data, activeFilter, columnsMax, filters } = this.props;
+    const { data, activeFilter, columnsMax, filters, showError } = this.props;
     return (
       <div className={styles.app}>
         <div className={styles.header}>
           <h2>jira-dev-status-board/</h2>
+          { showError
+            ? <span className={styles.error}>
+                {showError}
+              </span>
+            : null
+          }
+
         </div>
         <div className={styles.content}>
           {
@@ -53,6 +60,7 @@ const actions = {
 };
 
 const mapStateToProps = state => ({
+  showError: state.showError,
   activeFilter: state.activeFilter,
   data: state.data,
   columnsMax: state.columnsMax,

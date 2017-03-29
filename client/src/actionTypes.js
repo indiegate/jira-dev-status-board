@@ -1,4 +1,7 @@
 export const REQUEST_FILTERS = 'server/REQUEST_FILTERS';
 export const SUBSCRIBE = 'server/SUBSCRIBE';
+export const FORCE_REFRESH_DATA = 'server/FORCE_REFRESH_DATA';
+
 export const FILTERS_RECEIVED = 'FILTERS_RECEIVED';
 export const DATA_RECEIVED = 'DATA_RECEIVED';
+export const DATA_RECEIVED_FAILED = 'DATA_RECEIVED_FAILED';

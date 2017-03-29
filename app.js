@@ -6,12 +6,14 @@ const fs = require('fs');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const Rx = require('rxjs/Rx');
 
 const log = require('simple-node-logger').createSimpleFileLogger('project.log');
 
 const JiraService  = require('./services/JiraService');
 
 const issuesReceived = payload => ({type: 'DATA_RECEIVED', payload});
+const issuesReceivedFailed = () => ({type: 'DATA_RECEIVED_FAILED'});
 const filtersReceived = payload => ({type: 'FILTERS_RECEIVED', payload});
 
 console.log('Starting app..');
@@ -52,12 +54,18 @@ const rooms = new Map();
 
 const updateRoom = (room, roomName) => {
   if (room.sockets.size > 0) {
-    JiraService.getIssues(roomName, settings).then(data => {
-      console.log(`Emit data to ${roomName}`);
-      //const data = testData;
-      room.data = data;
-      io.to(roomName).emit("action", issuesReceived(data));
-    });
+    JiraService.getIssues(roomName, settings).subscribe(
+      data => {
+        console.log(`Emit data to ${roomName}`);
+        //const data = testData;
+        room.data = data;
+        io.to(roomName).emit("action", issuesReceived(data));
+      },
+      reason => {
+        console.log(`Error`);
+        io.to(roomName).emit("action", issuesReceivedFailed());
+      }
+    );
   };
 };
 
